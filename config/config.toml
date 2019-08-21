@@ -1,0 +1,11 @@
+[app]
+proxy_addr = "127.0.0.1:5000"
+api_addr = "127.0.0.1:5001"
+logger_level = "info"
+[database]
+addr = "192.168.137.100"
+username = "root"
+password = "123456"
+dbname = "gateway"
+port = 3306
+connection_max = 200
