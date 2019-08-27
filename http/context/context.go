@@ -2,6 +2,7 @@ package context
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 )
 
@@ -34,4 +35,36 @@ func (c *Context) Request() *http.Request {
 
 func (c *Context) Context() context.Context {
 	return c.ctx
+}
+
+func (c *Context) Json(data interface{}) {
+	c.response.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	jsonBytes, err := json.Marshal(data)
+	if err != nil {
+		c.response.WriteHeader(500)
+		c.response.Write([]byte(err.Error()))
+		return
+	}
+
+	c.response.Write(jsonBytes)
+}
+
+func (c *Context) ParamsGetAll() (values map[string]string) {
+	params := c.request.URL.Query()
+
+	values = map[string]string{}
+	for key, item := range params {
+		values[key] = item[0]
+	}
+	return values
+}
+func (c *Context) ParamsGet(key string) (value string) {
+	params := c.ParamsGetAll()
+
+	value, ok := params[key]
+
+	if ok == true {
+		return value
+	}
+	return ""
 }

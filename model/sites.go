@@ -19,7 +19,17 @@ func (s *Sites) QueryOneById(id int) *Sites {
 	row := DB.QueryRow("select `id`, `name`, `scheme`,`domain`, `balance`, `created_at`, `updated_at` from qi_sites where id=?", id)
 
 	if err := row.Scan(&s.ID, &s.Name, &s.Scheme, &s.Domain, &s.Balance, &s.CreatedAt, &s.UpdatedAt); err != nil && err != sql.ErrNoRows {
-		fmt.Printf("Sites->QueryRow scan failed, err:%v", err)
+		fmt.Printf("Sites->QueryOneById scan failed, err:%v", err)
+		return nil
+	}
+	return s
+}
+
+func (s *Sites) QueryOneByDomain(domain string) *Sites {
+	row := DB.QueryRow("select `id`, `name`, `scheme`,`domain`, `balance`, `created_at`, `updated_at` from qi_sites where domain=?", domain)
+
+	if err := row.Scan(&s.ID, &s.Name, &s.Scheme, &s.Domain, &s.Balance, &s.CreatedAt, &s.UpdatedAt); err != nil && err != sql.ErrNoRows {
+		fmt.Printf("Sites->QueryOneByDomain scan failed, err:%v", err)
 		return nil
 	}
 	return s
