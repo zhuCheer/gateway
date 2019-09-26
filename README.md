@@ -17,8 +17,10 @@
 go mod tidy
 go mod vendor
 ```
-3.将 gateway.sql 导入到 MySql;
+3.将 gateway.sql 导入到 MySql
+
 4.编辑 `config/config.toml` 配置mysql连接
+
 5. 启动服务 `go run main.go --config=config/config.toml`
 
 
