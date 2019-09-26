@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 
 type Context struct {
@@ -58,6 +59,7 @@ func (c *Context) ParamsGetAll() (values map[string]string) {
 	}
 	return values
 }
+
 func (c *Context) ParamsGet(key string) (value string) {
 	params := c.ParamsGetAll()
 
@@ -67,4 +69,16 @@ func (c *Context) ParamsGet(key string) (value string) {
 		return value
 	}
 	return ""
+}
+
+func (c *Context) ParamsPost(key string) (value string) {
+	value = c.request.PostFormValue(key)
+	return value
+}
+
+func (c *Context) ParamsPostInt(key string) (value int) {
+	valueStr := c.request.PostFormValue(key)
+	value, _ = strconv.Atoi(valueStr)
+
+	return value
 }
