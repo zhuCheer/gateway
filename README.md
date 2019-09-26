@@ -24,6 +24,9 @@ go mod vendor
 5. 启动服务 `go run main.go --config=config/config.toml`
 
 
+
+
+
 ## 配置说明
 
 - 服务启动后会启动两个端口 默认 5000 端口和 5001 端口;
@@ -40,7 +43,7 @@ go mod vendor
 
 网关实现基本上可以通过下图类解释，目前网关作为一个反向代实现, 将 mysql 中的域名-节点数据进行代理, 用户将域名都解析到网关 ip 上, 由网关来进行统一的转发;
 
-![image](https://note.youdao.com/favicon.ico)
+![image](https://raw.githubusercontent.com/zhuCheer/gateway/master/flow.jpg)
 
 ## 管理端接口
 
