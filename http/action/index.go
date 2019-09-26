@@ -6,6 +6,7 @@ import (
 	"github.com/zhuCheer/gateway/model"
 	"github.com/zhuCheer/gateway/proxy"
 	"log"
+	"reflect"
 )
 
 func Ping(ctx *context.Context) {
@@ -37,6 +38,16 @@ func GetInfo(ctx *context.Context) {
 	}
 	info, err := proxy.ProxySrv.GetSiteInfo(domain)
 
+	balanceType := ""
+	switch reflect.TypeOf(info.Balancer).String() {
+	case "*balancer.RoundRobinLoad":
+		balanceType = "roundrobin"
+	case "*balancer.RandomLoad":
+		balanceType = "random"
+	case "*balancer.WRoundRobinLoad":
+		balanceType = "wraoudrobin"
+	}
+
 	if err != nil {
 		ctx.Json(map[string]interface{}{
 			"error": 1,
@@ -47,9 +58,10 @@ func GetInfo(ctx *context.Context) {
 	}
 
 	ctx.Json(map[string]interface{}{
-		"error": 0,
-		"info":  "success",
-		"data":  info,
+		"error":       0,
+		"info":        "success",
+		"data":        info,
+		"balanceType": balanceType,
 	})
 	return
 }

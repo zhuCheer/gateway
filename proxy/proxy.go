@@ -5,15 +5,13 @@ import (
 	"github.com/zhuCheer/gateway/model"
 	"github.com/zhuCheer/libra"
 	"log"
-	"time"
 )
 
 var ProxySrv *libra.ProxySrv
 
 // 开启代理服务
 func ProxyStart() {
-	// 延时2s启动
-	time.Sleep(2 * time.Second)
+
 	proxyBindAddr := flag.Config.GetString("app.proxy_addr")
 	loggerLevel := flag.Config.GetString("app.logger_level")
 
