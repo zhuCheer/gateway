@@ -7,7 +7,6 @@
 - 支持管理端 api 接口
 - 通过 UI 面板实现对应用实现快速的均衡器网关搭建
 
-
 ## 开始使用
 
 1. `git clone https://github.com/zhuCheer/gateway`
@@ -23,7 +22,7 @@ go mod vendor
 
 5. 启动服务 `go run main.go --config=config/config.toml`
 
-
+6. 搭建客户端UI可视化管理服务移步 [gatewayui](https://github.com/zhuCheer/gatewayui)
 
 
 
